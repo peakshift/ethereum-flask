@@ -95,7 +95,7 @@ def blockTransform(block):
 	    "uncles": block["uncles"]
 	}
 	txns = []
-	for txn in block[transactions]:
+	for txn in block["transactions"]:
 		txns.append(w3.toHex(txn))
 
 	data["transactions"] = txns
