@@ -45,9 +45,7 @@ def get_by_address(address):
 	try:
 		if w3.isAddress(address):
 			balance = w3.eth.getBalance(address)
-			print(balance)
 			transactions = listTransactions(address)
-			print(transactions)
 			return jsonify({"data":{"balance": balance, "transactions": transactions}}), 200
 		return jsonify({"message": "Invalid Ethereum Address."}), 400
 	except Exception as e:
@@ -100,6 +98,26 @@ def get_incoming(address):
 		return jsonify({"message": "Invalid Ethereum Address."}), 400
 	except Exception as e:
 		return e 
+
+
+@app.route("/block/<int:height>", methods=["GET"])
+def get_block(height):
+	"""
+	Returns details on a requested block
+
+	param
+	height(int): block number
+
+	return
+	block(dict): dictionar of block details
+	"""
+	try:	
+		block = w3.eth.getBlock(height)
+		details = blockTransform(block)
+		print(details)
+		return jsonify({"data": details}), 200
+	except:
+		return jsonify({"message": "We seem to be experiencing some difficulties. Please try again."}), 400
 
 
 if __name__ == "__main__":
