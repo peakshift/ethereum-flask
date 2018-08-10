@@ -25,8 +25,15 @@ def listTransactions(address):
 	for i in range(0,blocks+1):
 		block = w3.eth.getBlock(i, True)
 		for txn in block['transactions']:
-			if txn['to'] == address or  txn['from'] == address:
-				txns.append(transformTransaction(txn))
+			if txn['to'] == address:
+				data = transformTransaction(txn)
+				del data["to"]
+			elif txn['from'] == address:
+				data = transformTransaction(txn)
+				del data["from"]
+			else:
+				continue
+			txns.append(data)
 	return txns
 
 
