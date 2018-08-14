@@ -2,11 +2,7 @@ import os
 from web3 import Web3
 
 
-url = os.environ['server']  # blockchain server
-w3 = Web3(Web3.HTTPProvider(url))
-
-
-def listTransactions(address):
+def listTransactions(w3, address):
 	"""
 	Searches for the transaction history of an address
 	inside all the blocks in the network

@@ -91,7 +91,7 @@ def get_incoming(address):
 	incoming = []
 	try:
 		if w3.isAddress(address):
-			transactions = listTransactions(address)
+			transactions = listTransactions(w3, address)
 			for data in transactions:
 				if "from" in data:
 					incoming.append(data)
