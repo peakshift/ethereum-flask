@@ -1,4 +1,5 @@
 import os
+from utils.block import *
 from utils.transaction import *
 from flask import Flask, jsonify
 from web3 import Web3
@@ -101,7 +102,7 @@ def get_incoming(address):
 
 
 @app.route("/block/<int:height>", methods=["GET"])
-def get_block(height):
+def get_block(height) -> dict :
 	"""
 	Returns details on a requested block
 
@@ -114,7 +115,6 @@ def get_block(height):
 	try:	
 		block = w3.eth.getBlock(height)
 		details = blockTransform(block)
-		print(details)
 		return jsonify({"data": details}), 200
 	except:
 		return jsonify({"message": "We seem to be experiencing some difficulties. Please try again."}), 400
