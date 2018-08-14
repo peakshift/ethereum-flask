@@ -114,7 +114,7 @@ def get_block(height) -> dict :
 	"""
 	try:	
 		block = w3.eth.getBlock(height)
-		details = blockTransform(block)
+		details = transformBlock(block)
 		return jsonify({"data": details}), 200
 	except:
 		return jsonify({"message": "We seem to be experiencing some difficulties. Please try again."}), 400
