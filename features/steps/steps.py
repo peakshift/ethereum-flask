@@ -6,26 +6,21 @@ from utils.block import *
 # from utils.transaction import *
 
 
-url = "http://localhost:5000"
 testcase = unittest.TestCase('__init__')
 
-@when(u'a "GET" request is made to "{resource}"')
-def step_impl(context, resource):
-	context.response = requests.get(url + resource)
+
+@given(u'the AttributeDict')
+def step_impl(context):
+	context.data = json.loads(context.text)
+	print(type(context.data))
 
 
-@then(u'the response status is "{code}"')
-def step_impl(context, code):
-	context.status_code = int(code)
-
-
-@then(u'the response content type is "{value}"')
-def step_impl(context, value):
-	assert (context.response.headers["Content-Type"] == value)
+@when(u'the AttributeDict is passed to the transformBlock function')
+def step_impl(context):
+	context.response = transformBlock(context.data)
 
 
 @then(u'the response data is similar to')
 def step_impl(context):
-	context.expected = json.loads(context.text)
-	context.results = transformBlock(context.response)
-	testcase.assertCountEqual(context.results, context.expected)
+	context.expected = json.loads(context.text)	
+	testcase.assertCountEqual(context.response, context.expected)
