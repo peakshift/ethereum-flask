@@ -46,7 +46,7 @@ def get_by_address(address):
 	try:
 		if w3.isAddress(address):
 			balance = w3.eth.getBalance(address)
-			transactions = listTransactions(address)
+			transactions = listTransactions(w3, address)
 			return jsonify({"data":{"balance": balance, "transactions": transactions}}), 200
 		return jsonify({"message": "Invalid Ethereum Address."}), 400
 	except Exception as e:
@@ -67,7 +67,7 @@ def get_outgoing(address):
 	outgoing = []
 	try:
 		if w3.isAddress(address):
-			transactions = listTransactions(address)
+			transactions = listTransactions(w3, address)
 			for data in transactions:
 				if "to" in data:
 					outgoing.append(data)

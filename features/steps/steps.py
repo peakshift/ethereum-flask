@@ -2,7 +2,6 @@ import json
 import unittest
 from behave import * 
 from utils.block import *
-from utils.transaction import *
 
 
 testcase = unittest.TestCase('__init__')
@@ -24,14 +23,5 @@ def step_impl(context):
 	context.expected = json.loads(context.text)	
 	testcase.assertCountEqual(context.response, context.expected)
 
-
-@given(u'the transaction block below')
-def step_impl(context):
-	context.data = json.loas(context.text)
-
-
-@when(u'the data is passed to transformTransactions')
-def step_impl(context):
-	context.response = transformBlock(context.data)
 
 
