@@ -1,17 +1,13 @@
-import os
 from web3 import Web3
 
 
-url = os.environ['server']  # blockchain server
-w3 = Web3(Web3.HTTPProvider(url))
-
-
-def listTransactions(address):
+def listTransactions(w3, address):
 	"""
 	Searches for the transaction history of an address
 	inside all the blocks in the network
 
 	param
+	w3(string): web3 node connection
 	address(string): address for the account whose
 	transaction history is being searched for
 
@@ -25,6 +21,7 @@ def listTransactions(address):
 	for i in range(0,blocks+1):
 		block = w3.eth.getBlock(i, True)
 		for txn in block['transactions']:
+			print(type(txn))
 			if txn['to'] == address or  txn['from'] == address:
 				txns.append(transformTransaction(txn))
 	return txns
