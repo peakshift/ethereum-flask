@@ -7,6 +7,7 @@ def listTransactions(w3, address):
 	inside all the blocks in the network
 
 	param
+	w3(string): web3 node connection
 	address(string): address for the account whose
 	transaction history is being searched for
 
