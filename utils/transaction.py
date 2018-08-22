@@ -21,7 +21,6 @@ def listTransactions(w3, address):
 	for i in range(0,blocks+1):
 		block = w3.eth.getBlock(i, True)
 		for txn in block['transactions']:
-<<<<<<< HEAD
 			if txn['to'] == address:
 				data = transformTransaction(txn)
 				del data["to"]
@@ -31,11 +30,6 @@ def listTransactions(w3, address):
 			else:
 				continue
 			txns.append(data)
-=======
-			print(type(txn))
-			if txn['to'] == address or  txn['from'] == address:
-				txns.append(transformTransaction(txn))
->>>>>>> master
 	return txns
 
 
