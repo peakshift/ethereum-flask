@@ -34,7 +34,7 @@ def transformTransaction(txn):
 	essentials data
 
 	param
-	txn(string): account address
+	txn(dict): account address
 
 	return
 	data(dict): reduced transaction block
