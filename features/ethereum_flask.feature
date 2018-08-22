@@ -6,7 +6,6 @@ So that ___
 
 
 Scenario: Transform block data to python dict
-Given the block data similar to
 Given a dictionary
 And property "number" int is "2"
 And property "hash" HexBytes is "0x23cddac75d68d0c2bd78596fdfded22183ec6e3c42f36c95f0d72e097a0e37fa"
@@ -28,7 +27,8 @@ And property "gasUsed" int is "21000"
 And property "timestamp" int is "1534253339"
 And property "uncles" array is empty
 And property "transactions" array contains
-      | 0x97c068992b6bf1930eb854e7c5c67c2720d7df4b4878822ffcb0792c6333d59a |
+	|					hash 											 |
+    | 0x97c068992b6bf1930eb854e7c5c67c2720d7df4b4878822ffcb0792c6333d59a |
 When the data is passed to the transformBlock function
 Then the returned data is similar to:
 """
