@@ -1,9 +1,6 @@
 version: 2
 jobs: 
   build:
-    branches:
-      only:
-        - master 
     docker: 
       - image: "circleci/python:3.6"
     working_directory: ~/ethereum-flask
@@ -12,7 +9,7 @@ jobs:
       - run:
           name: "install dependencies"
           command: |
-            pipenv install
+            pipenv install --skip-lock
       - run:
           name: "run behave tests"
           command: pipenv run behave
