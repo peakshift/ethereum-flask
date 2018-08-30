@@ -1,6 +1,9 @@
 version: 2
 jobs: 
-  build: 
+  build:
+    branches:
+      only:
+        - master 
     docker: 
       - image: "circleci/python:3.6"
     working_directory: ~/ethereum-flask
