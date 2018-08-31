@@ -16,6 +16,4 @@ jobs:
       - run:
           name: "run pylint"
           command: |
-            pipenv run pylint app.py
-            pipenv run pylint utils/block.py
-            pipenv run pylint utils/transaction.py
+            pipenv run pylint app.py utils/block.py utils/transaction.py
