@@ -10,7 +10,7 @@ You would also need to download and set up ganache gui
 
 2. `cd ganache`
 
-3. `npm init`
+3. `npm install`
 
 4. `npm start`
 
@@ -33,6 +33,12 @@ To run the Flask app:
 In these steps pipenv is installing the necessary dependencies for the project and automatically creates a virtual environment for the project. Any other dependencies that you may add would be automatically added to the Pipfile.
 
 # Contributing
+
+1. Fork it (https://github.com/peakshift/ethereum-flask/fork)
+2. Create your feature branch (see "Branches" below)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin 123-short-name`)
+5. Create a new Pull Request to base `peakshift:master`
 
 ### Branches
 - A branch name should begin with the issue number, and have short name (2-4 words). New features or fixes should be based off of the `master` branch.
