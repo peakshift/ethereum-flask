@@ -42,7 +42,7 @@ def step_impl(context, property):
 
 @when(u'the data is passed to the transformBlock function')
 def step_impl(context):
-    context.response = transformBlock(context.data)
+    context.response = transform_block(context.data)
 
 
 @given(u'the transaction block data similar to')
@@ -52,7 +52,7 @@ def step_impl(context):
 
 @when(u'the data is passed to the transformTransaction function')
 def step_impl(context):
-    context.response = transformTransaction(context.data)
+    context.response = transform_transaction(context.data)
 
 
 @then(u'the returned data is similar to')
