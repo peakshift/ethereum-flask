@@ -52,6 +52,54 @@ def get_by_address(address):
 		return e 
 
 
+@app.route("/address/<address>/outgoing", methods=["GET"])
+def get_outgoing(address):
+	"""
+	Returns outgoing transactions of an address
+
+	param
+	address(string): account address
+
+	return
+	transactions(list): list of transformed outgoing transaction blocks
+	"""
+	outgoing = []
+	try:
+		if w3.isAddress(address):
+			transactions = listTransactions(address)
+			for data in transactions:
+				if "to" in data:
+					outgoing.append(data)
+			return jsonify({"data":{"transactions": outgoing}}), 200
+		return jsonify({"message": "Invalid Ethereum Address."}), 400
+	except Exception as e:
+		return e 
+
+
+@app.route("/address/<address>/incoming", methods=["GET"])
+def get_incoming(address):
+	"""
+	Returns incoming transactions of an address
+
+	param
+	address(string): account address
+
+	return
+	transactions(list): list of transformed incoming transaction blocks
+	"""
+	incoming = []
+	try:
+		if w3.isAddress(address):
+			transactions = listTransactions(address)
+			for data in transactions:
+				if "from" in data:
+					incoming.append(data)
+			return jsonify({"data":{"transactions": incoming}}), 200
+		return jsonify({"message": "Invalid Ethereum Address."}), 400
+	except Exception as e:
+		return e 
+
+
 if __name__ == "__main__":
 	app.run(debug=True,
 		threaded=True,
