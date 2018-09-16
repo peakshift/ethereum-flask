@@ -32,6 +32,12 @@ In these steps pipenv is installing the necessary dependencies for the project a
 
 # Contributing
 
+1. Fork it (https://github.com/peakshift/ethereum-flask/fork)
+2. Create your feature branch (see "Branches" below)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin 123-short-name`)
+5. Create a new Pull Request to base `peakshift:master`
+
 ### Branches
 - A branch name should begin with the issue number, and have short name (2-4 words). New features or fixes should be based off of the `master` branch.
   - `git checkout -b 123-short-name master`
@@ -73,11 +79,3 @@ To begin testing your scenarios
 - Subject line, use the imperative form of a verb
   - GOOD "add contributing guidelines"
   - BAD "adding contribuing guidelines"
-
-## Contributing
-
-1. Fork it (https://github.com/peakshift/ethereum-flask/fork)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request to base `peakshift:master`
