@@ -73,3 +73,11 @@ To begin testing your scenarios
 - Subject line, use the imperative form of a verb
   - GOOD "add contributing guidelines"
   - BAD "adding contribuing guidelines"
+
+## Contributing
+
+1. Fork it (https://github.com/peakshift/ethereum-flask/fork)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request to base `peakshift:master`
