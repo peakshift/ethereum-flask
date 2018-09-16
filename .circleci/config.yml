@@ -1,0 +1,19 @@
+version: 2
+jobs: 
+  build:
+    docker: 
+      - image: "circleci/python:3.6"
+    working_directory: ~/ethereum-flask
+    steps: 
+      - checkout
+      - run:
+          name: "install dependencies"
+          command: |
+            pipenv install --skip-lock
+      - run:
+          name: "run behave tests"
+          command: pipenv run behave
+      - run:
+          name: "run pylint"
+          command: |
+            pipenv run pylint app.py utils/block.py utils/transaction.py
