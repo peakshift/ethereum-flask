@@ -1,28 +1,32 @@
-def listTransactions(w3, address) -> list:
+"""
+Interact and read ethereum transactions
+"""
+
+def list_transactions(_w3, _address) -> list:
     """
     Searches for the transaction history of an address
     inside all the blocks in the network
 
     param
-    w3(string): web3 node connection
-    address(string): address for the account whose
+    _w3(string): web3 node connection
+    _address(string): address for the account whose
     transaction history is being searched for
 
     return
     txns(list): transaction history of the address given
     """
 
-    blocks = w3.eth.blockNumber
+    blocks = _w3.eth.blockNumber
 
     txns = []
-    for i in range(0,blocks+1):
-        block = w3.eth.getBlock(i, True)
+    for i in range(0, blocks+1):
+        block = _w3.eth.getBlock(i, True)
         for txn in block['transactions']:
-            if txn['to'] == address:
-                data = transformTransaction(txn)
+            if txn['to'] == _address:
+                data = transform_transaction(txn)
                 del data["to"]
-            elif txn['from'] == address:
-                data = transformTransaction(txn)
+            elif txn['from'] == _address:
+                data = transform_transaction(txn)
                 del data["from"]
             else:
                 continue
@@ -30,8 +34,7 @@ def listTransactions(w3, address) -> list:
     return txns
 
 
-
-def transformTransaction(txn) -> dict:
+def transform_transaction(_txn) -> dict:
     """
     Reduces the transaction block to display only
     essentials data
@@ -44,13 +47,11 @@ def transformTransaction(txn) -> dict:
 
     """
     data = {
-        "to": txn["to"],
-        "gas": txn["gas"],
-        "from": txn["from"],
-        "value": txn["value"],
-        "gas_price": txn["gasPrice"],
-        "block_number": txn["blockNumber"]
+        "to": _txn["to"],
+        "gas": _txn["gas"],
+        "from": _txn["from"],
+        "value": _txn["value"],
+        "gas_price": _txn["gasPrice"],
+        "block_number": _txn["blockNumber"]
     }
     return data
-
-

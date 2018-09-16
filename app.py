@@ -1,16 +1,19 @@
+"""
+Bootstrap flask application
+"""
+
 import os
 from web3 import Web3
 from flask import Flask, jsonify
-from utils.block import *
-from utils.transaction import *
+from utils.block import transform_block
+from utils.transaction import list_transactions, transform_transaction
+
+APP = Flask(__name__)
+URL = os.environ['server']  # blockchain server
+W3 = Web3(Web3.HTTPProvider(URL))
 
 
-app = Flask(__name__)
-url = os.environ['server']  # blockchain server
-w3 = Web3(Web3.HTTPProvider(url))
-
-
-@app.route("/tx/<transid>", methods=["GET"])
+@APP.route("/tx/<transid>", methods=["GET"])
 def get_by_id(transid) -> dict:
     """
     Searches for a transaction by ID and returns the
@@ -23,14 +26,14 @@ def get_by_id(transid) -> dict:
     data(dict): filtered transaction block
     """
     try:
-        transaction = w3.eth.getTransaction(transid)
-        data = transformTransaction(transaction)
+        transaction = W3.eth.getTransaction(transid)
+        data = transform_transaction(transaction)
         return jsonify({"data": data}), 200
-    except:
+    except ValueError:
         return jsonify({"message": "Invalid Transaction Hash."}), 400
 
 
-@app.route("/address/<address>", methods=["GET"])
+@APP.route("/address/<address>", methods=["GET"])
 def get_by_address(address) -> dict:
     """
     Returns transactions and balance of an address
@@ -43,16 +46,16 @@ def get_by_address(address) -> dict:
     transactions(list): list of transformed transaction blocks
     """
     try:
-        if w3.isAddress(address):
-            balance = w3.eth.getBalance(address)
-            transactions = listTransactions(w3, address)
+        if W3.isAddress(address):
+            balance = W3.eth.getBalance(address)
+            transactions = list_transactions(W3, address)
             return jsonify({"data":{"balance": balance, "transactions": transactions}}), 200
         return jsonify({"message": "Invalid Ethereum Address."}), 400
-    except Exception as error:
-        return error
+    except ValueError as error:
+        return jsonify({"message": error}), 400
 
 
-@app.route("/address/<address>/outgoing", methods=["GET"])
+@APP.route("/address/<address>/outgoing", methods=["GET"])
 def get_outgoing(address) -> dict:
     """
     Returns outgoing transactions of an address
@@ -65,18 +68,18 @@ def get_outgoing(address) -> dict:
     """
     outgoing = []
     try:
-        if w3.isAddress(address):
-            transactions = listTransactions(w3, address)
+        if W3.isAddress(address):
+            transactions = list_transactions(W3, address)
             for data in transactions:
                 if "to" in data:
                     outgoing.append(data)
             return jsonify({"data":{"transactions": outgoing}}), 200
         return jsonify({"message": "Invalid Ethereum Address."}), 400
-    except Exception as error:
-        return error
+    except ValueError as error:
+        return jsonify({"message": error}), 400
 
 
-@app.route("/address/<address>/incoming", methods=["GET"])
+@APP.route("/address/<address>/incoming", methods=["GET"])
 def get_incoming(address) -> dict:
     """
     Returns incoming transactions of an address
@@ -89,18 +92,18 @@ def get_incoming(address) -> dict:
     """
     incoming = []
     try:
-        if w3.isAddress(address):
-            transactions = listTransactions(w3, address)
+        if W3.isAddress(address):
+            transactions = list_transactions(W3, address)
             for data in transactions:
                 if "from" in data:
                     incoming.append(data)
             return jsonify({"data":{"transactions": incoming}}), 200
         return jsonify({"message": "Invalid Ethereum Address."}), 400
-    except Exception as error:
-        return error
+    except ValueError as error:
+        return jsonify({"message": error}), 400
 
 
-@app.route("/block/<int:height>", methods=["GET"])
+@APP.route("/block/<int:height>", methods=["GET"])
 def get_block(height) -> dict:
     """
     Returns details on a requested block
@@ -112,15 +115,15 @@ def get_block(height) -> dict:
     block(dict): dictionary of block details
     """
     try:
-        block = w3.eth.getBlock(height)
-        details = transformBlock(block)
+        block = W3.eth.getBlock(height)
+        details = transform_block(block)
         return jsonify({"data": details}), 200
-    except:
+    except ValueError:
         return jsonify({"message": "Something went wrong. Please try again."}), 400
 
 
 if __name__ == "__main__":
-    app.run(debug=True,
+    APP.run(debug=True,
             threaded=True,
             host='0.0.0.0',
             port=5000)
