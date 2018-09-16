@@ -10,7 +10,9 @@ You would also need to download and set up ganache gui
 
 2. `cd ganache`
 
-3. `npm install && npm start`
+3. `npm install`
+
+4. `npm start`
 
 
 # Getting Started
